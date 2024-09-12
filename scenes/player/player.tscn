@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://b81n620de3ncs"]
+
+[ext_resource type="Script" path="res://scenes/player/Player.gd" id="1_81fon"]
+[ext_resource type="Script" path="res://scenes/player/STATES.gd" id="2_1ut3a"]
+[ext_resource type="PackedScene" uid="uid://hcirfobbjqtv" path="res://scenes/player/FALL.tscn" id="2_0184v"]
+[ext_resource type="PackedScene" uid="uid://yfxuieq0x1t0" path="res://scenes/player/IDLE.tscn" id="3_nv7tb"]
+[ext_resource type="PackedScene" uid="uid://cif3fftw7iyl2" path="res://scenes/player/MOVE.tscn" id="4_w2j18"]
+[ext_resource type="PackedScene" uid="uid://d0q16owpcrqo" path="res://scenes/player/JUMP.tscn" id="5_f23lx"]
+[ext_resource type="PackedScene" uid="uid://cmknjy5pk8737" path="res://scenes/player/CLIMB.tscn" id="6_sthl4"]
+[ext_resource type="PackedScene" uid="uid://dhqbpbqap5a6b" path="res://scenes/player/DOWN.tscn" id="7_6g2yb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqnm8"]
+size = Vector2(20, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37dgx"]
+size = Vector2(22, 42)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_81fon")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_aqnm8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+offset_right = 160.0
+offset_bottom = 27.0
+show_percentage = false
+
+[node name="StepCheckRays" type="Node2D" parent="."]
+
+[node name="stepforward" type="RayCast2D" parent="StepCheckRays"]
+unique_name_in_owner = true
+position = Vector2(19, -44)
+target_position = Vector2(0, 44)
+
+[node name="bottom" type="RayCast2D" parent="StepCheckRays"]
+unique_name_in_owner = true
+target_position = Vector2(0, 24)
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_37dgx")
+
+[node name="STATES" type="Node" parent="."]
+script = ExtResource("2_1ut3a")
+
+[node name="FALL" parent="STATES" instance=ExtResource("2_0184v")]
+
+[node name="IDLE" parent="STATES" instance=ExtResource("3_nv7tb")]
+
+[node name="MOVE" parent="STATES" instance=ExtResource("4_w2j18")]
+
+[node name="JUMP" parent="STATES" instance=ExtResource("5_f23lx")]
+
+[node name="CLIMB" parent="STATES" instance=ExtResource("6_sthl4")]
+
+[node name="DOWN" parent="STATES" instance=ExtResource("7_6g2yb")]
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="TopRight" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, -41)
+target_position = Vector2(11, 0)
+
+[node name="BottomRight" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(11, 0)
+
+[node name="MidRight" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, -20)
+target_position = Vector2(14, 0)
+
+[node name="TopLeft" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, -41)
+target_position = Vector2(-11, 0)
+
+[node name="BottomLeft" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(-11, 0)
+
+[node name="MidLeft" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, -20)
+target_position = Vector2(-14, 0)
+
+[node name="Arm" type="Node2D" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Arm"]
+offset_top = -3.0
+offset_right = 25.0
+offset_bottom = 4.0
+
+[node name="Marker2D" type="Marker2D" parent="Arm"]

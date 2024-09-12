@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://eix60at1ij85"]
+
+[ext_resource type="Script" path="res://scenes/boat_scene/boat_scene.gd" id="1_3n13e"]
+[ext_resource type="Texture2D" uid="uid://s8gawanopjdi" path="res://resources/skybox_clouds.jpeg" id="1_a0s00"]
+[ext_resource type="PackedScene" uid="uid://b81n620de3ncs" path="res://scenes/player/player.tscn" id="1_bvxlg"]
+
+[sub_resource type="Curve2D" id="Curve2D_en0jb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngirm"]
+size = Vector2(1752.48, 585.336)
+
+[sub_resource type="Animation" id="Animation_17l2w"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatableBody2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_agxa8"]
+resource_name = "bobbing"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(20, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 30, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 20, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 3, 6, 9, 12)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatableBody2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.0314159, -0.25, 0, 0.25, 0, 0.0314159, -0.25, 0, 0.25, 0, -0.020944, -0.25, 0, 0.25, 0, 0.0279253, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5, 4.6, 7.6, 10.6, 12)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6k23n"]
+_data = {
+"RESET": SubResource("Animation_17l2w"),
+"bobbing": SubResource("Animation_agxa8")
+}
+
+[node name="BoatScene" type="Node2D"]
+script = ExtResource("1_3n13e")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -3118.0
+offset_top = -2674.0
+offset_right = 3118.0
+offset_bottom = 144.0
+texture = ExtResource("1_a0s00")
+stretch_mode = 4
+
+[node name="Player" parent="." instance=ExtResource("1_bvxlg")]
+position = Vector2(-804, -360)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_en0jb")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
+remote_path = NodePath("../../AnimatableBody2D")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="Path2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+shape = SubResource("RectangleShape2D_ngirm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path2D"]
+libraries = {
+"": SubResource("AnimationLibrary_6k23n")
+}
+autoplay = "bobbing"

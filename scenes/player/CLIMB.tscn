@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmknjy5pk8737"]
+
+[ext_resource type="Script" path="res://scenes/player/CLIMB.gd" id="1_yg0gb"]
+
+[node name="CLIMB" type="Node"]
+script = ExtResource("1_yg0gb")
