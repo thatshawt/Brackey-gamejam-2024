@@ -1,10 +1,12 @@
 extends Node
 
+var Weapon = load("res://scenes/weapon/weapon.gd")
+
 class Ability:
 	var cooldown: int = 0
 
 class Hotbar:
-	#var weapon: Weapon = null
+	var weapon: Weapon = null
 	var ability1: Ability = null
 	var ability2: Ability = null
 
@@ -33,10 +35,12 @@ class GameState:
 	
 	func _init():
 		pass
+	func weapon_change():
+		pass
 
 var game_state = GlobalScript.GameState.new()
 
 func _ready():
-	pass
-	
+	SignalBus.weapon_change.connect(game_state.weapon_change)
+	SignalBus.weapon_change.emit(Weapon.weapons.Bow)
 	

@@ -2,13 +2,13 @@ extends Sprite2D
 class_name Weapon
 
 var bullet_speed_multiplier : float
-var weapons := {}
 var level : int = 0
-enum weapon_type {Bow,Crossbow,Flintlock,Deagle,Shotgun,M16,Rocket_Launcher,Beam_Emitter}
+var current_weapon : weapons
+enum weapons {Bow,Crossbow,Flintlock,Deagle,Shotgun,M16,Rocket_Launcher,Beam_Emitter}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
