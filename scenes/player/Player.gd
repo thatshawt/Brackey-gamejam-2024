@@ -49,9 +49,20 @@ var jump_buffer := false
 var wall_jump_buffer := false
 var downed := false
 var attack_duration := 0.1
-var attack_angle 
+var attack_angle
 var attack_force := Vector2(500,500)
 var attacking := false
+var weapon
+var weapon_type := [
+	"Bow",
+	"Crossbow",
+	"Flintlock",
+	"Deagle",
+	"Shotgun",
+	"M16",
+	"Rocket Launcher",
+	"Beam Emitter"
+]
 
 #states
 var current_state = null
@@ -64,6 +75,7 @@ var prev_state = null
 @onready var Arm = $Arm
 
 func _ready():
+	weapon = weapon_type[0]
 	for state in STATES.get_children():
 		state.STATES = STATES
 		state.Player = self
@@ -95,7 +107,7 @@ func _physics_process(delta):
 	if !downed:
 		if attack_input:
 			if !attacking:
-				attack()
+				_attack()
 
 	const DAMAGE_RATE = 5.0
 	var overlapping_mobs = $HurtBox.get_overlapping_bodies()
@@ -107,7 +119,7 @@ func _physics_process(delta):
 					queue_free()
 	$CanvasLayer/HealthBar.value = health
 
-	camera_peak()
+	_camera_peak()
 	player_input()
 	change_state(current_state.update(delta))
 	if not _snap_up_stairs_check(delta):
@@ -208,20 +220,26 @@ func take_damage():
 	if health == 0:
 		queue_free()
 
-func attack():
+func _attack():
 	const BULLET = preload("res://scenes/player/bullet.tscn")
 	var new_bullet = BULLET.instantiate()
-	new_bullet.global_position = $Arm/Marker2D.global_position
-	new_bullet.global_rotation = $Arm/Marker2D.global_rotation
-	$Arm/Marker2D.add_child(new_bullet)
-	var recoil := 1.3
-	#velocity += recoil * -$Arm/ColorRect.rotation
-	
+	match weapon:
+		"Bow":
+			new_bullet.global_position = $Arm/Marker2D.global_position
+			new_bullet.global_rotation = $Arm/Marker2D.global_rotation
+			$Arm/Marker2D.add_child(new_bullet)
+			var recoil := 1.3
+			#velocity += recoil * -$Arm/ColorRect.rotation
+		"Crossbow":
+			new_bullet.global_position = $Arm/Marker2D.global_position
+			new_bullet.global_rotation = $Arm/Marker2D.global_rotation
+			$Arm/Marker2D.add_child(new_bullet)
+			
 	attacking = true
 	await get_tree().create_timer(attack_duration).timeout
 	attacking = false
 
-func camera_peak():
+func _camera_peak():
 	var sensitivity = 6
 	var mouse_pos = get_local_mouse_position()
 	Camera.position = (mouse_pos / sensitivity)

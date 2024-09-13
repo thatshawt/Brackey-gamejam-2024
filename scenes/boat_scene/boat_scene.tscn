@@ -90,6 +90,8 @@ curve = SubResource("Curve2D_en0jb")
 remote_path = NodePath("../../AnimatableBody2D")
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="Path2D"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
 shape = SubResource("RectangleShape2D_ngirm")
