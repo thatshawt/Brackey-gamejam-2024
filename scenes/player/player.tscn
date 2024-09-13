@@ -92,12 +92,13 @@ position = Vector2(0, -20)
 target_position = Vector2(-14, 0)
 
 [node name="Arm" type="Node2D" parent="."]
-position = Vector2(0, -27)
+position = Vector2(0, -26)
 
 [node name="ColorRect" type="ColorRect" parent="Arm"]
 offset_top = -3.0
-offset_right = 25.0
+offset_right = 21.0
 offset_bottom = 4.0
 color = Color(0, 0, 0, 1)
 
 [node name="Marker2D" type="Marker2D" parent="Arm"]
+position = Vector2(17, 0)

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvubymgak5la1"]
+
+[ext_resource type="Texture2D" uid="uid://dcckvjx53ck53" path="res://resources/deagle.png" id="1_t461y"]
+[ext_resource type="Script" path="res://scenes/weapon/weapon.gd" id="2_y43ta"]
+
+[node name="Weapon" type="Sprite2D"]
+scale = Vector2(0.0952381, 0.0952381)
+texture = ExtResource("1_t461y")
+script = ExtResource("2_y43ta")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(197, -75)

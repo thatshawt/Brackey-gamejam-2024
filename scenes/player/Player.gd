@@ -53,16 +53,7 @@ var attack_angle
 var attack_force := Vector2(500,500)
 var attacking := false
 var weapon
-var weapon_type := [
-	"Bow",
-	"Crossbow",
-	"Flintlock",
-	"Deagle",
-	"Shotgun",
-	"M16",
-	"Rocket Launcher",
-	"Beam Emitter"
-]
+
 
 #states
 var current_state = null
@@ -75,7 +66,7 @@ var prev_state = null
 @onready var Arm = $Arm
 
 func _ready():
-	weapon = weapon_type[0]
+	_spawn_weapon_in_hand()
 	for state in STATES.get_children():
 		state.STATES = STATES
 		state.Player = self
@@ -215,26 +206,20 @@ func attempt_correction(amount: int):
 						velocity.x = 0
 					return
 
+func _spawn_weapon_in_hand():
+	const WEAPON = preload("res://scenes/weapon/weapon.tscn")
+	var new_weapon = WEAPON.instantiate()
+	$Arm/Marker2D.add_child(new_weapon)
+
 func take_damage():
 	health -= 1
 	if health == 0:
 		queue_free()
 
 func _attack():
-	const BULLET = preload("res://scenes/player/bullet.tscn")
-	var new_bullet = BULLET.instantiate()
-	match weapon:
-		"Bow":
-			new_bullet.global_position = $Arm/Marker2D.global_position
-			new_bullet.global_rotation = $Arm/Marker2D.global_rotation
-			$Arm/Marker2D.add_child(new_bullet)
-			var recoil := 1.3
-			#velocity += recoil * -$Arm/ColorRect.rotation
-		"Crossbow":
-			new_bullet.global_position = $Arm/Marker2D.global_position
-			new_bullet.global_rotation = $Arm/Marker2D.global_rotation
-			$Arm/Marker2D.add_child(new_bullet)
-			
+	Weapon.shoot()
+
+	
 	attacking = true
 	await get_tree().create_timer(attack_duration).timeout
 	attacking = false
