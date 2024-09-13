@@ -14,6 +14,11 @@ config/name="calm before the storm"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalScript="*res://scripts_maybe/GlobalScript.gd"
+SignalBus="*res://scripts_maybe/SignalBus.gd"
+
 [input]
 
 MoveRight={
