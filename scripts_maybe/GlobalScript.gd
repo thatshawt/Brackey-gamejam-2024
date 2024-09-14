@@ -17,6 +17,8 @@ class ShipState:
 	var max_hp: float = 100.0
 	var hp: float = 100.0
 	
+	
+	
 	func _init():
 		SignalBus.ship_damage_hp.connect(on_ship_dmg)
 		
@@ -40,6 +42,8 @@ class GameState:
 
 @onready
 var game_state = GlobalScript.GameState.new()
+
+var the_player: PlayerNode
 
 func _ready():
 	#SignalBus.weapon_change.connect(game_state.weapon_change)

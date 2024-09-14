@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name PlayerNode
+
 #player input
 var paused := false
 var pausepress : bool
@@ -75,6 +77,8 @@ func _ready():
 		state.Player = self
 	prev_state = STATES.IDLE
 	current_state = STATES.IDLE
+	
+	GlobalScript.the_player = self
 
 func _process(delta):
 	Arm.look_at(Arm.get_global_mouse_position())
@@ -210,10 +214,11 @@ func attempt_correction(amount: int):
 					return
 
 func _spawn_weapon_in_hand():
-	#const WEAPON = preload("res://scenes/weapon/weapon.tscn")
-	#var new_weapon = WEAPON.instantiate()
-	#$Arm/Marker2D.add_child(new_weapon)
-	pass
+	const WEAPON = preload("res://scenes/weapon/weapon.tscn")
+	var new_weapon = WEAPON.instantiate()
+	$Arm/Marker2D.add_child(new_weapon)
+	
+	GlobalScript.game_state.hotbar.weapon = new_weapon
 
 func take_damage():
 	health -= 1
@@ -221,8 +226,10 @@ func take_damage():
 		queue_free()
 
 func _attack():
-	#Weapon.shoot()
-
+	var the_weapon = GlobalScript.game_state.hotbar.weapon
+	
+	the_weapon.shoot()
+	
 	attacking = true
 	await get_tree().create_timer(attack_duration).timeout
 	attacking = false
