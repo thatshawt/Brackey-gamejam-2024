@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvkr7vwsktcup"]
+[gd_scene load_steps=2 format=3 uid="uid://bvkr7vwsktcup"]
 
 [ext_resource type="Script" path="res://scenes/upgrades/upgrades.gd" id="1_80oi1"]
-[ext_resource type="PackedScene" uid="uid://bvgowqdf86dhs" path="res://scenes/upgrades/upgradeContainer.tscn" id="1_sk6tv"]
 
 [node name="Upgrades" type="Control"]
 layout_mode = 3
@@ -32,9 +31,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="theUpgradesVerticalContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/upgradesScrollContainer"]
-layout_mode = 2
-
-[node name="hp_upgrade" parent="MarginContainer/VBoxContainer/upgradesScrollContainer/theUpgradesVerticalContainer" instance=ExtResource("1_sk6tv")]
 layout_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
