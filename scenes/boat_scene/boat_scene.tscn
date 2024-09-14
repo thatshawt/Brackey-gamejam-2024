@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://eix60at1ij85"]
+[gd_scene load_steps=19 format=3 uid="uid://eix60at1ij85"]
 
 [ext_resource type="Texture2D" uid="uid://btd6bxvgub7km" path="res://resources/freakyah.png" id="1_4jul4"]
 [ext_resource type="Texture2D" uid="uid://s8gawanopjdi" path="res://resources/skybox_clouds.jpeg" id="1_a0s00"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://ojb7b4v7l1o5" path="res://resources/shipmast.png" id="4_q46a6"]
 [ext_resource type="Script" path="res://scenes/boat_scene/ropes.gd" id="5_k6s8a"]
 [ext_resource type="Script" path="res://scenes/boat_scene/ropes2.gd" id="6_vqwfa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sm13f"]
+size = Vector2(115.476, 4.14331)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qsqk2"]
 size = Vector2(6232, 1222)
@@ -98,6 +101,12 @@ texture = ExtResource("1_4jul4")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="cloud/StaticBody2D"]
 polygon = PackedVector2Array(-113.338, 25.936, -138.286, 22.5896, -158.958, 30.1194, -172.501, 55.219, -168.937, 71.9521, -176.778, 88.6851, -168.937, 102.072, -159.671, 123.825, -140.425, 126.334, -122.604, 150.597, -96.2301, 156.454, -76.9841, 183.227, -40.6305, 202.47, -11.405, 190.757, 30.6511, 197.45, 52.0356, 176.534, 69.856, 178.207, 94.0917, 153.944, 119.753, 165.657, 134.722, 151.434, 153.255, 138.884, 174.64, 98.7251, 151.83, 67.7688, 137.573, 68.6055, 110.486, 50.199, 87.6764, 1.6731, 68.4303, -16.7332, 73.42, -35.9763, 48.4715, -56.0559, -64.1534, -58.5659, -74.8456, -35.9763, -112.625, -5.85669, -104.784, 11.7131)
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cloud/StaticBody2D"]
+position = Vector2(-8.55377, -195.338)
+scale = Vector2(1, 0.999999)
+shape = SubResource("RectangleShape2D_sm13f")
+one_way_collision = true
+
 [node name="Ocean" type="Area2D" parent="."]
 position = Vector2(-198, 166)
 
@@ -117,7 +126,7 @@ texture = ExtResource("1_a0s00")
 stretch_mode = 4
 
 [node name="Player" parent="." instance=ExtResource("1_bvxlg")]
-position = Vector2(-315, -3077)
+position = Vector2(-232, -3188)
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_en0jb")

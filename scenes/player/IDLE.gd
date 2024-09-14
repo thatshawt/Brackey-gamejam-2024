@@ -7,6 +7,9 @@ func update(delta):
 			return STATES.JUMP
 	if Player.movement_input.x != 0 or Player.velocity.x != 0:
 		return STATES.MOVE
+	if Player.climbing:
+		if Player.movement_input.y < 0:
+			return STATES.CLIMB
 	if Player.jump_input:
 		if Player.can_jump:
 			return STATES.JUMP
