@@ -79,7 +79,7 @@ func _ready():
 	prev_state = STATES.IDLE
 	current_state = STATES.IDLE
 	
-	GlobalScript.the_player = self
+	GlobalScript.game_state.the_player = self
 
 func _process(delta):
 	Arm.look_at(Arm.get_global_mouse_position())
