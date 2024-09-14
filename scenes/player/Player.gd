@@ -65,6 +65,9 @@ var prev_state = null
 @onready var Camera = $Camera2D
 @onready var Arm = $Arm
 
+#scripts
+var Weapon = load("res://scenes/weapon/weapon.gd")
+
 func _ready():
 	_spawn_weapon_in_hand()
 	for state in STATES.get_children():
@@ -207,9 +210,10 @@ func attempt_correction(amount: int):
 					return
 
 func _spawn_weapon_in_hand():
-	const WEAPON = preload("res://scenes/weapon/weapon.tscn")
-	var new_weapon = WEAPON.instantiate()
-	$Arm/Marker2D.add_child(new_weapon)
+	#const WEAPON = preload("res://scenes/weapon/weapon.tscn")
+	#var new_weapon = WEAPON.instantiate()
+	#$Arm/Marker2D.add_child(new_weapon)
+	pass
 
 func take_damage():
 	health -= 1
@@ -217,9 +221,9 @@ func take_damage():
 		queue_free()
 
 func _attack():
-	Weapon.shoot()
+	#Weapon.shoot().weapon_class
 
-	
+
 	attacking = true
 	await get_tree().create_timer(attack_duration).timeout
 	attacking = false

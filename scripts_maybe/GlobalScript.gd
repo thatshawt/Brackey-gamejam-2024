@@ -41,6 +41,7 @@ class GameState:
 var game_state = GlobalScript.GameState.new()
 
 func _ready():
-	SignalBus.weapon_change.connect(game_state.weapon_change)
-	SignalBus.weapon_change.emit(Weapon.weapons.Bow)
+	#SignalBus.weapon_change.connect(game_state.weapon_change)
+	#SignalBus.weapon_change.emit(Weapon.weapons.Bow)
+	pass
 	

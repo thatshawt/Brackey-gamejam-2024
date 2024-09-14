@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://eix60at1ij85"]
+[gd_scene load_steps=8 format=3 uid="uid://eix60at1ij85"]
 
-[ext_resource type="Script" path="res://scenes/boat_scene/boat_scene.gd" id="1_3n13e"]
 [ext_resource type="Texture2D" uid="uid://s8gawanopjdi" path="res://resources/skybox_clouds.jpeg" id="1_a0s00"]
 [ext_resource type="PackedScene" uid="uid://b81n620de3ncs" path="res://scenes/player/player.tscn" id="1_bvxlg"]
 
@@ -68,7 +67,6 @@ _data = {
 }
 
 [node name="BoatScene" type="Node2D"]
-script = ExtResource("1_3n13e")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -3118.0
