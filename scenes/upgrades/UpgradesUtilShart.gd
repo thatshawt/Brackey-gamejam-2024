@@ -60,10 +60,13 @@ static func _get_stat_upgrade_name(stat: UpgradeType):
 	return stat_upgrade_name
 
 class UpgradeData:
+	var stat: UpgradeType
+	
 	var category: String
 	var upgrade_name: String
 	
 	var unlocked: bool = true
+	var old_level: int
 	var level: int = 1
 	var cost: int
 	
@@ -189,7 +192,11 @@ class UpgradesState:
 		upgrade_data.category = Upgrades._get_category_name(stat)
 		upgrade_data.upgrade_name = Upgrades._get_stat_upgrade_name(stat)
 		
+		upgrade_data.stat = stat
+		
 		var stat_current_level: int = get_upgrade_level(stat)
+		
+		upgrade_data.old_level = stat_current_level
 		
 		match stat:
 			UpgradeType.Ship_Ship_HP:
