@@ -5,7 +5,6 @@ var bullet_speed_multiplier : float
 var level : int = 0
 var current_weapon : weapons
 enum weapons {Bow,Crossbow,Flintlock,Deagle,Shotgun,M16,Rocket_Launcher,Beam_Emitter}
-#var weapon_class = Weapon.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -10,6 +10,9 @@ func update(delta):
 	if Player.velocity.y > 0:
 		if !Player.is_on_floor():
 			return STATES.FALL
+	if Player.climbing:
+		if Player.movement_input.y < 0:
+			return STATES.CLIMB
 	if Player.jump_input:
 		if Player.can_jump:
 			return STATES.JUMP

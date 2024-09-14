@@ -8,7 +8,7 @@ func update(delta):
 	Player.gravity()
 	player_movement()
 	slide_movement(delta)
-	if Player.get_next_to_wall() == null:
+	if !Player.climbing:
 		if !Player.is_on_floor():
 			return STATES.FALL
 		else:

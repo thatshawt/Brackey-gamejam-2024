@@ -15,7 +15,7 @@ size = Vector2(20, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37dgx"]
 size = Vector2(22, 42)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Climber"]]
 script = ExtResource("1_81fon")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -66,30 +66,6 @@ script = ExtResource("2_1ut3a")
 [node name="CLIMB" parent="STATES" instance=ExtResource("6_sthl4")]
 
 [node name="DOWN" parent="STATES" instance=ExtResource("7_6g2yb")]
-
-[node name="Raycasts" type="Node2D" parent="."]
-
-[node name="TopRight" type="RayCast2D" parent="Raycasts"]
-position = Vector2(0, -41)
-target_position = Vector2(11, 0)
-
-[node name="BottomRight" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(11, 0)
-
-[node name="MidRight" type="RayCast2D" parent="Raycasts"]
-position = Vector2(0, -20)
-target_position = Vector2(14, 0)
-
-[node name="TopLeft" type="RayCast2D" parent="Raycasts"]
-position = Vector2(0, -41)
-target_position = Vector2(-11, 0)
-
-[node name="BottomLeft" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(-11, 0)
-
-[node name="MidLeft" type="RayCast2D" parent="Raycasts"]
-position = Vector2(0, -20)
-target_position = Vector2(-14, 0)
 
 [node name="Arm" type="Node2D" parent="."]
 position = Vector2(0, -26)

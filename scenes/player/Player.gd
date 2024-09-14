@@ -16,7 +16,7 @@ var down_test_input := false
 #player movement
 const jump_hang_gravity = 0
 const jump_height : float = 96
-const variable_jump_height : float = 88
+const variable_jump_height : float = 96
 const jump_time_to_peak : float = 0.6
 const jump_time_to_descent : float = 0.45
 const SPEED = 400
@@ -37,7 +37,6 @@ var current_gravity : float
 #mechanics
 var health := 60.0
 var coyote := false
-var touched_wall := false
 var touched_floor := false
 var prev_velocity : Vector2 = Vector2.ZERO
 var jump_velocity : float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
@@ -49,6 +48,7 @@ var jump_count : int
 var max_jumps : int = 1
 var jump_buffer := false
 var wall_jump_buffer := false
+var climbing := false
 var downed := false
 var attack_duration := 0.1
 var attack_angle
@@ -72,6 +72,7 @@ var Weapon = load("res://scenes/weapon/weapon.gd")
 
 func _ready():
 	_spawn_weapon_in_hand()
+	
 	for state in STATES.get_children():
 		state.STATES = STATES
 		state.Player = self
@@ -82,20 +83,13 @@ func _ready():
 
 func _process(delta):
 	Arm.look_at(Arm.get_global_mouse_position())
-
+	
 	if jump_count >= max_jumps:
 		can_jump = false
 	elif jump_count < max_jumps:
 		can_jump = true
-	if get_next_to_wall() != null:
-		touched_wall = true
-		if velocity.y >= -164:
-			jump_count = 0
-	if jump_just_released:
-		touched_wall = false
 	if is_on_floor():
 		jump_count = 0
-		touched_wall = false
 
 func _physics_process(delta):
 	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
@@ -184,24 +178,6 @@ func _snap_up_stairs_check(delta) -> bool:
 			return true
 	return false
 
-func get_next_to_wall():
-	for raycast in Raycasts.get_children():
-		raycast.force_raycast_update()
-		if $Raycasts/MidLeft.is_colliding():
-			if $Raycasts/TopLeft.is_colliding() or $Raycasts/BottomLeft.is_colliding():
-				prev_slide_dir = Vector2.LEFT
-				return Vector2.LEFT
-		elif $Raycasts/MidRight.is_colliding():
-			if $Raycasts/TopRight.is_colliding() or $Raycasts/BottomRight.is_colliding():
-					prev_slide_dir = Vector2.RIGHT
-					return Vector2.RIGHT
-		return null
-
-func wall_jump_coyote():
-	if wall_jump_buffer:
-		return prev_slide_dir
-	return null
-
 func attempt_correction(amount: int):
 	if test_move(global_transform, Vector2(0, velocity.y * get_physics_process_delta_time())):
 		for i in range(1, amount*2+1):
@@ -238,6 +214,10 @@ func _camera_peak():
 	var sensitivity = 6
 	var mouse_pos = get_local_mouse_position()
 	Camera.position = (mouse_pos / sensitivity)
+
+func _input(event: InputEvent):
+	if (event.is_action_pressed("MoveDown")) && is_on_floor():
+		position.y += 1
 
 func player_input():
 	movement_input = Vector2.ZERO

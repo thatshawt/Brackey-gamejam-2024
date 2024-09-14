@@ -1,12 +1,32 @@
-[gd_scene load_steps=8 format=3 uid="uid://eix60at1ij85"]
+[gd_scene load_steps=18 format=3 uid="uid://eix60at1ij85"]
 
+[ext_resource type="Texture2D" uid="uid://btd6bxvgub7km" path="res://resources/freakyah.png" id="1_4jul4"]
 [ext_resource type="Texture2D" uid="uid://s8gawanopjdi" path="res://resources/skybox_clouds.jpeg" id="1_a0s00"]
 [ext_resource type="PackedScene" uid="uid://b81n620de3ncs" path="res://scenes/player/player.tscn" id="1_bvxlg"]
+[ext_resource type="Texture2D" uid="uid://cdqtcj5s3bsaf" path="res://resources/ship.png" id="2_w6jq1"]
+[ext_resource type="Texture2D" uid="uid://ojb7b4v7l1o5" path="res://resources/shipmast.png" id="4_q46a6"]
+[ext_resource type="Script" path="res://scenes/boat_scene/ropes.gd" id="5_k6s8a"]
+[ext_resource type="Script" path="res://scenes/boat_scene/ropes2.gd" id="6_vqwfa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsqk2"]
+size = Vector2(6232, 1222)
 
 [sub_resource type="Curve2D" id="Curve2D_en0jb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngirm"]
-size = Vector2(1752.48, 585.336)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7stx"]
+size = Vector2(58.6361, 11.1768)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sytxi"]
+size = Vector2(304.79, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whfmp"]
+size = Vector2(215.463, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hudcq"]
+size = Vector2(264.68, 10.1098)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s023"]
+size = Vector2(74, 8.00002)
 
 [sub_resource type="Animation" id="Animation_17l2w"]
 length = 0.001
@@ -68,7 +88,27 @@ _data = {
 
 [node name="BoatScene" type="Node2D"]
 
+[node name="cloud" type="Sprite2D" parent="."]
+position = Vector2(-162, -2936)
+scale = Vector2(1.40289, 1.19524)
+texture = ExtResource("1_4jul4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="cloud"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="cloud/StaticBody2D"]
+polygon = PackedVector2Array(-113.338, 25.936, -138.286, 22.5896, -158.958, 30.1194, -172.501, 55.219, -168.937, 71.9521, -176.778, 88.6851, -168.937, 102.072, -159.671, 123.825, -140.425, 126.334, -122.604, 150.597, -96.2301, 156.454, -76.9841, 183.227, -40.6305, 202.47, -11.405, 190.757, 30.6511, 197.45, 52.0356, 176.534, 69.856, 178.207, 94.0917, 153.944, 119.753, 165.657, 134.722, 151.434, 153.255, 138.884, 174.64, 98.7251, 151.83, 67.7688, 137.573, 68.6055, 110.486, 50.199, 87.6764, 1.6731, 68.4303, -16.7332, 73.42, -35.9763, 48.4715, -56.0559, -64.1534, -58.5659, -74.8456, -35.9763, -112.625, -5.85669, -104.784, 11.7131)
+
+[node name="Ocean" type="Area2D" parent="."]
+position = Vector2(-198, 166)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ocean"]
+position = Vector2(198, 566)
+shape = SubResource("RectangleShape2D_qsqk2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Ocean"]
+
 [node name="TextureRect" type="TextureRect" parent="."]
+z_index = -4
 offset_left = -3118.0
 offset_top = -2674.0
 offset_right = 3118.0
@@ -77,7 +117,7 @@ texture = ExtResource("1_a0s00")
 stretch_mode = 4
 
 [node name="Player" parent="." instance=ExtResource("1_bvxlg")]
-position = Vector2(-804, -360)
+position = Vector2(-391, -813)
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_en0jb")
@@ -91,11 +131,93 @@ remote_path = NodePath("../../AnimatableBody2D")
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
-shape = SubResource("RectangleShape2D_ngirm")
+[node name="ship" type="Sprite2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(3.49998, -276)
+scale = Vector2(1.31613, 1)
+texture = ExtResource("2_w6jq1")
+
+[node name="masts" type="Sprite2D" parent="Path2D/AnimatableBody2D"]
+z_index = -2
+position = Vector2(0.999992, -274)
+scale = Vector2(1.31105, 1)
+texture = ExtResource("4_q46a6")
+
+[node name="ropes" type="Area2D" parent="Path2D/AnimatableBody2D"]
+script = ExtResource("5_k6s8a")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/AnimatableBody2D/ropes"]
+polygon = PackedVector2Array(-359, -45, -485, -45, -419, -501, -389, -501)
+
+[node name="ropes2" type="Area2D" parent="Path2D/AnimatableBody2D"]
+script = ExtResource("6_vqwfa")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/AnimatableBody2D/ropes2"]
+polygon = PackedVector2Array(66, -41, 186, -43, 177, -500, 149, -500)
+
+[node name="ShipCollision" type="CollisionPolygon2D" parent="Path2D/AnimatableBody2D"]
+polygon = PackedVector2Array(-815, -186, -796, -171, -650, -154, -616, -129, -574, -129, -518, -94, -401, -90, -304, -30, -8, -30, 127, -37, 194, -96, 419, -123, 455, -136, 624, -179, 612, -101, 464, -42, 456, -21, 425, -12, 370, 64, 324, 151, 287, 191, 236, 212, -674, 212, -698, 66, -715, 66, -731, 39, -740, -34, -805, -43, -817, -71, -764, -79, -812, -150, -817, -174)
+
+[node name="RearOneWayCollision" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(-844.895, -184.984)
+rotation = 0.15473
+shape = SubResource("RectangleShape2D_p7stx")
+one_way_collision = true
+one_way_collision_margin = 0.2
+
+[node name="LowMastOneWayCollision" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(-404.842, -438.335)
+rotation = 0.143256
+shape = SubResource("RectangleShape2D_sytxi")
+one_way_collision = true
+one_way_collision_margin = 0.2
+
+[node name="LowMastOneWayCollision2" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(161, -439)
+rotation = 0.143256
+shape = SubResource("RectangleShape2D_sytxi")
+one_way_collision = true
+one_way_collision_margin = 0.2
+
+[node name="HighMastOneWayCollision" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(-408, -661)
+rotation = 0.143256
+shape = SubResource("RectangleShape2D_whfmp")
+one_way_collision = true
+one_way_collision_margin = 0.2
+
+[node name="HighMastOneWayCollision2" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(158, -661)
+rotation = 0.143256
+shape = SubResource("RectangleShape2D_whfmp")
+one_way_collision = true
+one_way_collision_margin = 0.2
+
+[node name="FrontOneWayCollision" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(743.844, -177.142)
+rotation = -0.217664
+shape = SubResource("RectangleShape2D_hudcq")
+one_way_collision = true
+one_way_collision_margin = 0.2
+
+[node name="NestOneWayCollision" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(-404, -509)
+shape = SubResource("RectangleShape2D_6s023")
+one_way_collision = true
+one_way_collision_margin = 0.2
+
+[node name="NestOneWayCollision2" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
+position = Vector2(160, -509)
+shape = SubResource("RectangleShape2D_6s023")
+one_way_collision = true
+one_way_collision_margin = 0.2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Path2D"]
 libraries = {
 "": SubResource("AnimationLibrary_6k23n")
 }
 autoplay = "bobbing"
+
+[connection signal="body_entered" from="Path2D/AnimatableBody2D/ropes" to="Path2D/AnimatableBody2D/ropes" method="_on_body_entered"]
+[connection signal="body_exited" from="Path2D/AnimatableBody2D/ropes" to="Path2D/AnimatableBody2D/ropes" method="_on_body_exited"]
+[connection signal="body_entered" from="Path2D/AnimatableBody2D/ropes2" to="Path2D/AnimatableBody2D/ropes2" method="_on_body_entered"]
+[connection signal="body_exited" from="Path2D/AnimatableBody2D/ropes2" to="Path2D/AnimatableBody2D/ropes2" method="_on_body_exited"]

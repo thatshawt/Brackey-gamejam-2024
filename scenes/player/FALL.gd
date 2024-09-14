@@ -11,8 +11,8 @@ func update(delta):
 
 	if Player.is_on_floor():
 		return STATES.IDLE
-	if Player.get_next_to_wall() != null:
-		if Player.movement_input.x == Player.get_next_to_wall().x:
+	if Player.climbing:
+		if Player.movement_input.y < 0:
 			return STATES.CLIMB
 	if Player.jump_input:
 		if Player.can_jump or Player.coyote:
