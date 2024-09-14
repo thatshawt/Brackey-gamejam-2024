@@ -221,8 +221,7 @@ func take_damage():
 		queue_free()
 
 func _attack():
-	#Weapon.shoot().weapon_class
-
+	#Weapon.shoot()
 
 	attacking = true
 	await get_tree().create_timer(attack_duration).timeout
