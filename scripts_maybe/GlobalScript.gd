@@ -38,6 +38,7 @@ class GameState:
 	func weapon_change():
 		pass
 
+@onready
 var game_state = GlobalScript.GameState.new()
 
 func _ready():

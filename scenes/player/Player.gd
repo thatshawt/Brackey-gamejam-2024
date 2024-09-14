@@ -217,7 +217,8 @@ func take_damage():
 		queue_free()
 
 func _attack():
-	Weapon.shoot()
+	pass
+	#Weapon.shoot()
 
 	
 	attacking = true
