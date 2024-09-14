@@ -117,7 +117,7 @@ texture = ExtResource("1_a0s00")
 stretch_mode = 4
 
 [node name="Player" parent="." instance=ExtResource("1_bvxlg")]
-position = Vector2(-391, -813)
+position = Vector2(-315, -3077)
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_en0jb")
