@@ -1,11 +1,8 @@
 extends "state.gd"
 
-const fast_descent := 180.0
-const climb_speed := 180.0
-const slide_friction := 0.86
+const climb_speed := 200.0
 
 func update(delta):
-	Player.gravity()
 	player_movement()
 	slide_movement(delta)
 	if !Player.climbing:
@@ -27,17 +24,13 @@ func update(delta):
 	return null
 
 func slide_movement(delta):
-	if Player.climb_input:
-		if Player.movement_input.y < 0:
-			Player.velocity.y = lerp(Player.velocity.y, -climb_speed, 0.4)
-		elif Player.movement_input.y > 0:
-			Player.velocity.y = lerp(Player.velocity.y, climb_speed, 0.1)
-		else:
-			Player.velocity.y = 0
+	if Player.movement_input.y < 0:
+		Player.velocity.y = lerp(Player.velocity.y, -climb_speed, 0.4)
 	elif Player.movement_input.y > 0:
-		Player.velocity.y = lerp(Player.velocity.y, fast_descent, 0.1)
-	else:
-		Player.velocity.y *= slide_friction
+		Player.velocity.y = lerp(Player.velocity.y, climb_speed, 0.1)
+	elif !Player.movement_input.y:
+			Player.velocity.y = 0
+
 
 func enter_state():
 	Player.slide_on_ceiling = false

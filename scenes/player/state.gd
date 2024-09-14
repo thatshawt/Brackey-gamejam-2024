@@ -27,3 +27,5 @@ func player_movement():
 		xvelocity(Player.FRICTION, Player.SPEED, Player.ACCELERATION)
 	else:
 		xvelocity(Player.AIR_FRICTION, Player.SPEED, Player.AIR_ACCELERATION)
+	if Player.climbing:
+		xvelocity(Player.CLIMB_FRICTION, Player.SPEED, Player.ACCELERATION)

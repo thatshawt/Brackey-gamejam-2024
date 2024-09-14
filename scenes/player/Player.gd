@@ -20,11 +20,12 @@ const variable_jump_height : float = 96
 const jump_time_to_peak : float = 0.6
 const jump_time_to_descent : float = 0.45
 const SPEED = 400
-const MAX_SPEED = 460
+const MAX_SPEED = 560
 const ACCELERATION = 1600
 const AIR_ACCELERATION = 960
 const FRICTION = 620
 const AIR_FRICTION = 60
+const CLIMB_FRICTION = 888
 const MAX_STEP_HEIGHT = -16
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor = -INF
@@ -206,9 +207,6 @@ func _attack():
 	
 	the_weapon.shoot()
 	
-	attacking = true
-	await get_tree().create_timer(attack_duration).timeout
-	attacking = false
 
 func _camera_peak():
 	var sensitivity = 6
