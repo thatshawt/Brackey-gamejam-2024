@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvgowqdf86dhs"]
+
+[ext_resource type="Script" path="res://scenes/upgrades/upgradeContainer.gd" id="1_dpe7k"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+theme_override_constants/separation = 23
+script = ExtResource("1_dpe7k")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "HP"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+text = "100"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "110, 1 fish"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
