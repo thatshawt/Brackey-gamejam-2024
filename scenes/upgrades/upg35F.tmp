@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvkr7vwsktcup"]
+[gd_scene load_steps=2 format=3 uid="uid://bvkr7vwsktcup"]
 
-[ext_resource type="Script" path="res://scenes/upgrades/upgrades.gd" id="1_80oi1"]
 [ext_resource type="PackedScene" uid="uid://bvgowqdf86dhs" path="res://scenes/upgrades/upgradeContainer.tscn" id="1_sk6tv"]
 
 [node name="Upgrades" type="Control"]
@@ -10,14 +9,11 @@ anchor_bottom = 1.0
 offset_left = 41.0
 offset_right = 41.0
 grow_vertical = 2
-script = ExtResource("1_80oi1")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_left = 703.0
-offset_top = 1.0
-offset_right = 1108.0
-offset_bottom = 304.0
+offset_right = 405.0
+offset_bottom = 303.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -34,14 +30,10 @@ size_flags_vertical = 3
 [node name="theUpgradesVerticalContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/upgradesScrollContainer"]
 layout_mode = 2
 
-[node name="hp_upgrade" parent="MarginContainer/VBoxContainer/upgradesScrollContainer/theUpgradesVerticalContainer" instance=ExtResource("1_sk6tv")]
+[node name="HBoxContainer" parent="MarginContainer/VBoxContainer/upgradesScrollContainer/theUpgradesVerticalContainer" instance=ExtResource("1_sk6tv")]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_left = -41.0
-offset_right = 129.0
-offset_bottom = 66.0
+[node name="Label" parent="MarginContainer/VBoxContainer/upgradesScrollContainer/theUpgradesVerticalContainer/HBoxContainer" index="0"]
+text = "HPawdawd"
 
-[node name="leftvbox" type="VBoxContainer" parent="MarginContainer2"]
-layout_mode = 2
+[editable path="MarginContainer/VBoxContainer/upgradesScrollContainer/theUpgradesVerticalContainer/HBoxContainer"]

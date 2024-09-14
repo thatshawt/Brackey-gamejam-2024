@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://docrsxpgpr8hf"]
+
+[ext_resource type="Script" path="res://scenes/upgrades/leftbutton.gd" id="1_wyn0x"]
+
+[node name="Leftbutton" type="Button"]
+script = ExtResource("1_wyn0x")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
