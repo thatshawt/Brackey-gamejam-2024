@@ -33,6 +33,7 @@ func slide_movement(delta):
 
 
 func enter_state():
+	Player.jump_count = 0
 	Player.slide_on_ceiling = false
 
 func exit_state():

@@ -3,7 +3,7 @@ extends Node
 class_name GlobalScriptType
 
 # Imports
-var Weapon = load("res://scenes/weapon/weapon.gd")
+#var Weapon = preload("res://scenes/weapon/weapon.gd")
 
 class Ability:
 	var cooldown: int = 0

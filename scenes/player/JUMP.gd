@@ -26,3 +26,10 @@ func enter_state():
 	if Player.can_jump or Player.coyote:
 		Player.velocity.y = Player.jump_velocity
 	Player.coyote = false
+	
+	if Player.prev_state == STATES.CLIMB:
+		Player.jump_after_climb_coyote = true
+		
+func exit_state():
+	Player.jump_after_climb_coyote = false
+	

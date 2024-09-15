@@ -25,8 +25,8 @@ const ACCELERATION = 1600
 const AIR_ACCELERATION = 960
 const FRICTION = 620
 const AIR_FRICTION = 60
-const CLIMB_FRICTION = 888
-const MAX_STEP_HEIGHT = -16
+const CLIMB_FRICTION = 1200
+const MAX_STEP_HEIGHT = -88
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor = -INF
 
@@ -48,6 +48,7 @@ var can_multijump := false
 var jump_count : int
 var max_jumps : int = 1
 var jump_buffer := false
+var jump_after_climb_coyote := false
 var wall_jump_buffer := false
 var climbing := false
 var downed := false
@@ -169,7 +170,7 @@ func _snap_up_stairs_check(delta) -> bool:
 	if (_run_body_test_motion(step_pos_with_clearance, Vector2(0, - MAX_STEP_HEIGHT * 2), down_check_result)
 	and (down_check_result.get_collider().is_class("CollisionShape2D"))):
 		var step_height = ((step_pos_with_clearance.origin + down_check_result.get_travel()) - self.global_position).y
-		#if step_height < MAX_STEP_HEIGHT or step_height >= -0.01 or (down_check_result.get_collision_point() - self.global_position).y < MAX_STEP_HEIGHT: return false
+		if step_height < MAX_STEP_HEIGHT or step_height >= -0.01 or (down_check_result.get_collision_point() - self.global_position).y < MAX_STEP_HEIGHT: return false
 		%stepforward.global_position = down_check_result.get_collision_point() + Vector2(0, MAX_STEP_HEIGHT) + expected_move_motion.normalized() * 0.1
 		%stepforward.force_raycast_update()
 		if %stepforward.is_colliding() and not is_surface_too_steep(%stepforward.get_collision_normal()):
@@ -197,16 +198,17 @@ func _spawn_weapon_in_hand():
 	
 	GlobalScript.game_state.hotbar.weapon = new_weapon
 
+func _attack():
+	var the_weapon = GlobalScript.game_state.hotbar.weapon
+	
+	the_weapon.shoot_mech()
+	
 func take_damage():
 	health -= 1
 	if health == 0:
 		queue_free()
 
-func _attack():
-	var the_weapon = GlobalScript.game_state.hotbar.weapon
-	
-	the_weapon.shoot()
-	
+
 
 func _camera_peak():
 	var sensitivity = 6
