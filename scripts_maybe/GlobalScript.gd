@@ -7,6 +7,7 @@ class_name GlobalScriptType
 
 class Ability:
 	var cooldown: int = 0
+	var ability_name: String
 
 class Hotbar:
 	var weapon: Weapon

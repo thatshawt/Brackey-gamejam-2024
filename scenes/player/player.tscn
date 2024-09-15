@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://b81n620de3ncs"]
+[gd_scene load_steps=14 format=3 uid="uid://b81n620de3ncs"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.gd" id="1_81fon"]
 [ext_resource type="Script" path="res://scenes/player/STATES.gd" id="2_1ut3a"]
 [ext_resource type="Script" path="res://scenes/player/UpgradesButton.gd" id="2_4pxmn"]
 [ext_resource type="PackedScene" uid="uid://hcirfobbjqtv" path="res://scenes/player/FALL.tscn" id="2_0184v"]
+[ext_resource type="Script" path="res://scenes/player/fishLabel.gd" id="3_7wres"]
 [ext_resource type="PackedScene" uid="uid://yfxuieq0x1t0" path="res://scenes/player/IDLE.tscn" id="3_nv7tb"]
+[ext_resource type="Script" path="res://scenes/player/hotbarLabel.gd" id="4_u6de5"]
 [ext_resource type="PackedScene" uid="uid://cif3fftw7iyl2" path="res://scenes/player/MOVE.tscn" id="4_w2j18"]
 [ext_resource type="PackedScene" uid="uid://d0q16owpcrqo" path="res://scenes/player/JUMP.tscn" id="5_f23lx"]
 [ext_resource type="PackedScene" uid="uid://cmknjy5pk8737" path="res://scenes/player/CLIMB.tscn" id="6_sthl4"]
@@ -47,6 +49,22 @@ offset_right = 1153.0
 offset_bottom = 31.0
 text = "upgrades"
 script = ExtResource("2_4pxmn")
+
+[node name="fishLabel" type="Label" parent="CanvasLayer"]
+offset_left = 173.0
+offset_top = 2.0
+offset_right = 336.0
+offset_bottom = 25.0
+text = "FISH: 0"
+script = ExtResource("3_7wres")
+
+[node name="hotbarLabel" type="Label" parent="CanvasLayer"]
+offset_left = 419.0
+offset_top = 3.0
+offset_right = 926.0
+offset_bottom = 30.0
+text = "weapon: gun, ability1: hello, ability2: world"
+script = ExtResource("4_u6de5")
 
 [node name="StepCheckRays" type="Node2D" parent="."]
 

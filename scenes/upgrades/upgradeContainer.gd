@@ -28,3 +28,5 @@ func _on_button_pressed():
 		GlobalScript.game_state.fish = fish - cost
 		
 		SignalBus.ui_buy_level.emit(upgrade_data)
+		SignalBus.ui_update_fish.emit()
+		SignalBus.ui_update_hotbar.emit()
