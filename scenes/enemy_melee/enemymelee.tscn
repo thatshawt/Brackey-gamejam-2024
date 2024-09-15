@@ -1,0 +1,92 @@
+[gd_scene load_steps=18 format=3 uid="uid://c4wmm04ykl0n2"]
+
+[ext_resource type="Script" path="res://scenes/enemy_melee/EnemyMelee.gd" id="1_acq4t"]
+[ext_resource type="Script" path="res://scenes/enemy_melee/STATES.gd" id="2_5a1rq"]
+[ext_resource type="Script" path="res://addons/random_timers/RandomRangeTimer.gd" id="2_igmjf"]
+[ext_resource type="Script" path="res://scenes/enemy_melee/FALL.gd" id="4_mbax3"]
+[ext_resource type="PackedScene" uid="uid://hcirfobbjqtv" path="res://scenes/player/FALL.tscn" id="4_thbf7"]
+[ext_resource type="PackedScene" uid="uid://yfxuieq0x1t0" path="res://scenes/player/IDLE.tscn" id="5_gbqxv"]
+[ext_resource type="PackedScene" uid="uid://cif3fftw7iyl2" path="res://scenes/player/MOVE.tscn" id="6_kav5r"]
+[ext_resource type="Script" path="res://scenes/enemy_melee/IDLE.gd" id="6_kyt8w"]
+[ext_resource type="PackedScene" uid="uid://d0q16owpcrqo" path="res://scenes/player/JUMP.tscn" id="7_lbh5o"]
+[ext_resource type="PackedScene" uid="uid://cmknjy5pk8737" path="res://scenes/player/CLIMB.tscn" id="8_ip742"]
+[ext_resource type="Script" path="res://scenes/enemy_melee/MOVE.gd" id="8_wywdm"]
+[ext_resource type="PackedScene" uid="uid://dhqbpbqap5a6b" path="res://scenes/player/DOWN.tscn" id="9_67rkj"]
+[ext_resource type="Script" path="res://scenes/enemy_melee/JUMP.gd" id="10_c177o"]
+[ext_resource type="Script" path="res://scenes/enemy_melee/CLIMB.gd" id="12_6j44j"]
+[ext_resource type="Script" path="res://scenes/enemy_melee/DOWN.gd" id="14_jj13j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqnm8"]
+size = Vector2(20, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37dgx"]
+size = Vector2(22, 42)
+
+[node name="EnemyMelee" type="CharacterBody2D" groups=["Climber"]]
+collision_layer = 8
+collision_mask = 8
+platform_floor_layers = 8
+platform_wall_layers = 8
+script = ExtResource("1_acq4t")
+
+[node name="RandomRangeTimer" type="Timer" parent="."]
+one_shot = true
+script = ExtResource("2_igmjf")
+min_wait_time = 2.0
+max_wait_time = 4.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_aqnm8")
+
+[node name="StepCheckRays" type="Node2D" parent="."]
+
+[node name="stepforward" type="RayCast2D" parent="StepCheckRays"]
+unique_name_in_owner = true
+position = Vector2(19, -44)
+target_position = Vector2(0, 44)
+
+[node name="bottom" type="RayCast2D" parent="StepCheckRays"]
+unique_name_in_owner = true
+target_position = Vector2(0, 24)
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_37dgx")
+
+[node name="STATES" type="Node" parent="."]
+script = ExtResource("2_5a1rq")
+
+[node name="FALL" parent="STATES" instance=ExtResource("4_thbf7")]
+script = ExtResource("4_mbax3")
+
+[node name="IDLE" parent="STATES" instance=ExtResource("5_gbqxv")]
+script = ExtResource("6_kyt8w")
+
+[node name="MOVE" parent="STATES" instance=ExtResource("6_kav5r")]
+script = ExtResource("8_wywdm")
+
+[node name="JUMP" parent="STATES" instance=ExtResource("7_lbh5o")]
+script = ExtResource("10_c177o")
+
+[node name="CLIMB" parent="STATES" instance=ExtResource("8_ip742")]
+script = ExtResource("12_6j44j")
+
+[node name="DOWN" parent="STATES" instance=ExtResource("9_67rkj")]
+script = ExtResource("14_jj13j")
+
+[node name="Arm" type="Node2D" parent="."]
+position = Vector2(0, -26)
+
+[node name="ColorRect" type="ColorRect" parent="Arm"]
+offset_top = -3.0
+offset_right = 21.0
+offset_bottom = 4.0
+color = Color(0, 0, 0, 1)
+
+[node name="Marker2D" type="Marker2D" parent="Arm"]
+position = Vector2(17, 0)

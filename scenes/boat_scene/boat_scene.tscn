@@ -1,11 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://eix60at1ij85"]
+[gd_scene load_steps=22 format=3 uid="uid://eix60at1ij85"]
 
 [ext_resource type="Texture2D" uid="uid://btd6bxvgub7km" path="res://resources/freakyah.png" id="1_4jul4"]
 [ext_resource type="Texture2D" uid="uid://s8gawanopjdi" path="res://resources/skybox_clouds.jpeg" id="1_a0s00"]
 [ext_resource type="PackedScene" uid="uid://b81n620de3ncs" path="res://scenes/player/player.tscn" id="1_bvxlg"]
 [ext_resource type="Texture2D" uid="uid://cdqtcj5s3bsaf" path="res://resources/ship.png" id="2_w6jq1"]
 [ext_resource type="Texture2D" uid="uid://ojb7b4v7l1o5" path="res://resources/shipmast.png" id="4_q46a6"]
+[ext_resource type="PackedScene" uid="uid://c4wmm04ykl0n2" path="res://scenes/enemy_melee/enemymelee.tscn" id="4_uq8i2"]
 [ext_resource type="Script" path="res://scenes/boat_scene/ropes.gd" id="5_k6s8a"]
+[ext_resource type="PackedScene" uid="uid://cfilbpf2riv30" path="res://scenes/enemy_ranged/enemyranged.tscn" id="5_veq2n"]
 [ext_resource type="Script" path="res://scenes/boat_scene/ropes2.gd" id="6_vqwfa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sm13f"]
@@ -83,10 +85,38 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.5, 4.6, 7.6, 10.6, 12)
 }
 
+[sub_resource type="Animation" id="Animation_g7jl2"]
+resource_name = "storm_bob"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(20, -0.25, 0, 0.25, 0, -20, -0.25, 0, 0.25, 0, 50, -0.25, 0, 0.25, 0, -20, -0.25, 0, 0.25, 0, 20, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 3, 6, 9, 12)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatableBody2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.139626, -0.25, 0, 0.25, 0, 0.10472, -0.25, 0, 0.25, 0, -0.139626, -0.25, 0, 0.25, 0, 0.20944, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5, 4.6, 7.6, 10.5, 12)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6k23n"]
 _data = {
 "RESET": SubResource("Animation_17l2w"),
-"bobbing": SubResource("Animation_agxa8")
+"bobbing": SubResource("Animation_agxa8"),
+"storm_bob": SubResource("Animation_g7jl2")
 }
 
 [node name="BoatScene" type="Node2D"]
@@ -126,7 +156,12 @@ texture = ExtResource("1_a0s00")
 stretch_mode = 4
 
 [node name="Player" parent="." instance=ExtResource("1_bvxlg")]
-position = Vector2(-400, -817)
+position = Vector2(-139, -73)
+
+[node name="EnemyMelee" parent="." instance=ExtResource("4_uq8i2")]
+
+[node name="EnemyRanged" parent="." instance=ExtResource("5_veq2n")]
+position = Vector2(-542, -180)
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_en0jb")
@@ -137,8 +172,8 @@ curve = SubResource("Curve2D_en0jb")
 remote_path = NodePath("../../AnimatableBody2D")
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="Path2D"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 139
+collision_mask = 139
 
 [node name="ship" type="Sprite2D" parent="Path2D/AnimatableBody2D"]
 position = Vector2(3.49998, -276)
@@ -152,12 +187,16 @@ scale = Vector2(1.31105, 1)
 texture = ExtResource("4_q46a6")
 
 [node name="ropes" type="Area2D" parent="Path2D/AnimatableBody2D"]
+collision_layer = 137
+collision_mask = 137
 script = ExtResource("5_k6s8a")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/AnimatableBody2D/ropes"]
 polygon = PackedVector2Array(-359, -45, -485, -45, -419, -501, -389, -501)
 
 [node name="ropes2" type="Area2D" parent="Path2D/AnimatableBody2D"]
+collision_layer = 137
+collision_mask = 137
 script = ExtResource("6_vqwfa")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/AnimatableBody2D/ropes2"]
@@ -165,6 +204,8 @@ polygon = PackedVector2Array(66, -41, 186, -43, 177, -500, 149, -500)
 
 [node name="ShipCollision" type="CollisionPolygon2D" parent="Path2D/AnimatableBody2D"]
 polygon = PackedVector2Array(-815, -186, -796, -171, -650, -154, -616, -129, -574, -129, -518, -94, -401, -90, -304, -30, -8, -30, 127, -37, 194, -96, 419, -123, 455, -136, 624, -179, 612, -101, 464, -42, 456, -21, 425, -12, 370, 64, 324, 151, 287, 191, 236, 212, -674, 212, -698, 66, -715, 66, -731, 39, -740, -34, -805, -43, -817, -71, -764, -79, -812, -150, -817, -174)
+one_way_collision = true
+one_way_collision_margin = 128.0
 
 [node name="RearOneWayCollision" type="CollisionShape2D" parent="Path2D/AnimatableBody2D"]
 position = Vector2(-844.895, -184.984)

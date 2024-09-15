@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://tw5hk5vqo5oq"]
+
+[ext_resource type="Script" path="res://scenes/player/DOWN.gd" id="1_tp287"]
+
+[node name="DOWN" type="Node"]
+script = ExtResource("1_tp287")

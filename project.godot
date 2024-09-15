@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 GlobalScript="*res://scripts_maybe/GlobalScript.gd"
 SignalBus="*res://scripts_maybe/SignalBus.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/random_timers/plugin.cfg")
+
 [input]
 
 MoveRight={

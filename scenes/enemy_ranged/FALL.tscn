@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsd3rq4fodsel"]
+
+[ext_resource type="Script" path="res://scenes/player/FALL.gd" id="1_0v71v"]
+
+[node name="FALL" type="Node"]
+script = ExtResource("1_0v71v")
