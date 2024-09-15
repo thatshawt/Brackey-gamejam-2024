@@ -2,6 +2,7 @@ extends Sprite2D
 class_name Weapon
 
 var weapon_fire_interval := 0.6
+enum weapons {Bow, Crossbow, Flintlock, Handgun, Shotgun, Machine_Gun, Rocket_Launcher, Beam_Emitter}
 #var gun_level: int = GlobalScript.game_state.upgrades_state.get_upgrade_level(Upgrades.UpgradeType.Weapon_Next_Gun)
 
 #func _physics_process(delta):
