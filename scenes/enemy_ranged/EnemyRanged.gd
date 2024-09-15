@@ -51,6 +51,7 @@ var jump_buffer := false
 var jump_after_climb_coyote := false
 var wall_jump_buffer := false
 var climbing := false
+var swimming := false
 var downed := false
 var attack_duration := 0.1
 var attack_angle

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb83dmnkn5a43"]
+
+[ext_resource type="Script" path="res://scenes/enemy_melee/SWIM.gd" id="1_omyd6"]
+
+[node name="SWIM" type="Node"]
+script = ExtResource("1_omyd6")

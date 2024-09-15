@@ -1,9 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://eix60at1ij85"]
+[gd_scene load_steps=24 format=3 uid="uid://eix60at1ij85"]
 
 [ext_resource type="Texture2D" uid="uid://btd6bxvgub7km" path="res://resources/freakyah.png" id="1_4jul4"]
 [ext_resource type="Texture2D" uid="uid://s8gawanopjdi" path="res://resources/skybox_clouds.jpeg" id="1_a0s00"]
 [ext_resource type="PackedScene" uid="uid://b81n620de3ncs" path="res://scenes/player/player.tscn" id="1_bvxlg"]
+[ext_resource type="Script" path="res://addons/random_timers/RandomRangeTimer.gd" id="1_j2vmu"]
 [ext_resource type="Texture2D" uid="uid://cdqtcj5s3bsaf" path="res://resources/ship.png" id="2_w6jq1"]
+[ext_resource type="Script" path="res://scenes/boat_scene/Ocean.gd" id="3_kfp11"]
 [ext_resource type="Texture2D" uid="uid://ojb7b4v7l1o5" path="res://resources/shipmast.png" id="4_q46a6"]
 [ext_resource type="PackedScene" uid="uid://c4wmm04ykl0n2" path="res://scenes/enemy_melee/enemymelee.tscn" id="4_uq8i2"]
 [ext_resource type="Script" path="res://scenes/boat_scene/ropes.gd" id="5_k6s8a"]
@@ -14,7 +16,7 @@
 size = Vector2(115.476, 4.14331)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qsqk2"]
-size = Vector2(6232, 1222)
+size = Vector2(6232, 2224)
 
 [sub_resource type="Curve2D" id="Curve2D_en0jb"]
 
@@ -121,6 +123,12 @@ _data = {
 
 [node name="BoatScene" type="Node2D"]
 
+[node name="RandomRangeTimer" type="Timer" parent="."]
+one_shot = true
+script = ExtResource("1_j2vmu")
+min_wait_time = 128.0
+max_wait_time = 156.0
+
 [node name="cloud" type="Sprite2D" parent="."]
 position = Vector2(-162, -2936)
 scale = Vector2(1.40289, 1.19524)
@@ -139,9 +147,12 @@ one_way_collision = true
 
 [node name="Ocean" type="Area2D" parent="."]
 position = Vector2(-198, 166)
+collision_layer = 137
+collision_mask = 137
+script = ExtResource("3_kfp11")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ocean"]
-position = Vector2(198, 566)
+position = Vector2(198, 1067)
 shape = SubResource("RectangleShape2D_qsqk2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Ocean"]
@@ -267,6 +278,8 @@ libraries = {
 }
 autoplay = "bobbing"
 
+[connection signal="body_entered" from="Ocean" to="Ocean" method="_on_body_entered"]
+[connection signal="body_exited" from="Ocean" to="Ocean" method="_on_body_exited"]
 [connection signal="body_entered" from="Path2D/AnimatableBody2D/ropes" to="Path2D/AnimatableBody2D/ropes" method="_on_body_entered"]
 [connection signal="body_exited" from="Path2D/AnimatableBody2D/ropes" to="Path2D/AnimatableBody2D/ropes" method="_on_body_exited"]
 [connection signal="body_entered" from="Path2D/AnimatableBody2D/ropes2" to="Path2D/AnimatableBody2D/ropes2" method="_on_body_entered"]

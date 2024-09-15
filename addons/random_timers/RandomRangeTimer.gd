@@ -6,7 +6,7 @@ extends Timer
 @export_range(0.001, 4096, 0.001, "or_greater","exp", "suffix:s") var max_wait_time: float = 2.0 ##End of wait time range. 
 @export var is_initially_random := true ##If set to FALSE the first signal of the timer will use Timer's parent wait_time (can be set in editor), otherwise it will use a value taken from the given range from the very first start, including autostart.
 
-func _ready() -> void:	
+func _ready() -> void:
 	timeout.connect(_on_timeout)
 	_handle_initial_randomness()
 

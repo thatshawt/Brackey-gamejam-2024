@@ -6,3 +6,4 @@ extends Node
 @onready var FALL = $FALL
 @onready var CLIMB = $CLIMB
 @onready var DOWN = $DOWN
+@onready var SWIM = $SWIM

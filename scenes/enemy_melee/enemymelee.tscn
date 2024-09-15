@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c4wmm04ykl0n2"]
+[gd_scene load_steps=19 format=3 uid="uid://c4wmm04ykl0n2"]
 
 [ext_resource type="Script" path="res://scenes/enemy_melee/EnemyMelee.gd" id="1_acq4t"]
 [ext_resource type="Script" path="res://scenes/enemy_melee/STATES.gd" id="2_5a1rq"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scenes/enemy_melee/JUMP.gd" id="10_c177o"]
 [ext_resource type="Script" path="res://scenes/enemy_melee/CLIMB.gd" id="12_6j44j"]
 [ext_resource type="Script" path="res://scenes/enemy_melee/DOWN.gd" id="14_jj13j"]
+[ext_resource type="PackedScene" uid="uid://cb83dmnkn5a43" path="res://scenes/enemy_melee/SWIM.tscn" id="16_jgxgl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqnm8"]
 size = Vector2(20, 40)
@@ -22,7 +23,7 @@ size = Vector2(20, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37dgx"]
 size = Vector2(22, 42)
 
-[node name="EnemyMelee" type="CharacterBody2D" groups=["Climber"]]
+[node name="EnemyMelee" type="CharacterBody2D" groups=["Climber", "Swimmer"]]
 collision_layer = 8
 collision_mask = 8
 platform_floor_layers = 8
@@ -78,6 +79,8 @@ script = ExtResource("12_6j44j")
 
 [node name="DOWN" parent="STATES" instance=ExtResource("9_67rkj")]
 script = ExtResource("14_jj13j")
+
+[node name="SWIM" parent="STATES" instance=ExtResource("16_jgxgl")]
 
 [node name="Arm" type="Node2D" parent="."]
 position = Vector2(0, -26)

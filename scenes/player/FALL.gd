@@ -20,6 +20,8 @@ func update(delta):
 		elif !Player.can_jump:
 			Player.jump_buffer = true
 			get_tree().create_timer(jump_buffer_time).timeout.connect(on_jump_buffer_timeout)
+	if Player.swimming:
+		return STATES.SWIM
 	if Player.down_test_input:
 		return STATES.DOWN
 	return null

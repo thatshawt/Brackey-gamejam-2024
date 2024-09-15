@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://f7k6daqk3nyw"]
+
+[ext_resource type="Script" path="res://scenes/player/SWIM.gd" id="1_ymkmf"]
+
+[node name="SWIM" type="Node"]
+script = ExtResource("1_ymkmf")

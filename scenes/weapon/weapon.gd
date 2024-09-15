@@ -46,6 +46,7 @@ func set_stats():
 			bullet_max_hits = 108
 
 func shoot_mech():
+	print(gun_level)
 	const BULLET = preload("res://scenes/player/bullet.tscn")
 	var new_bullet = BULLET.instantiate()
 	new_bullet.global_position = $Marker2D.global_position
