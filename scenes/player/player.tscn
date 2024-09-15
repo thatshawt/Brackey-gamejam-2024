@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b81n620de3ncs"]
+[gd_scene load_steps=12 format=3 uid="uid://b81n620de3ncs"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.gd" id="1_81fon"]
 [ext_resource type="Script" path="res://scenes/player/STATES.gd" id="2_1ut3a"]
+[ext_resource type="Script" path="res://scenes/player/UpgradesButton.gd" id="2_4pxmn"]
 [ext_resource type="PackedScene" uid="uid://hcirfobbjqtv" path="res://scenes/player/FALL.tscn" id="2_0184v"]
 [ext_resource type="PackedScene" uid="uid://yfxuieq0x1t0" path="res://scenes/player/IDLE.tscn" id="3_nv7tb"]
 [ext_resource type="PackedScene" uid="uid://cif3fftw7iyl2" path="res://scenes/player/MOVE.tscn" id="4_w2j18"]
@@ -34,6 +35,13 @@ position_smoothing_enabled = true
 offset_right = 160.0
 offset_bottom = 27.0
 show_percentage = false
+
+[node name="UpgradesButton" type="Button" parent="CanvasLayer"]
+offset_left = 931.0
+offset_right = 1153.0
+offset_bottom = 31.0
+text = "upgrades"
+script = ExtResource("2_4pxmn")
 
 [node name="StepCheckRays" type="Node2D" parent="."]
 
@@ -78,3 +86,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="Marker2D" type="Marker2D" parent="Arm"]
 position = Vector2(17, 0)
+
+[connection signal="pressed" from="CanvasLayer/UpgradesButton" to="." method="_on_upgrades_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradesButton" to="CanvasLayer/UpgradesButton" method="_on_pressed"]
