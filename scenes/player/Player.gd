@@ -119,7 +119,7 @@ func _physics_process(delta):
 	if not _snap_up_stairs_check(delta):
 		move_and_slide()
 		_snap_down_to_stairs_check()
-	print(_snap_up_stairs_check(delta))
+	#print(_snap_up_stairs_check(delta))
 
 func change_state(input_state):
 	if input_state != null: 
