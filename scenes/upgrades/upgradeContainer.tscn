@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://scenes/upgrades/upgradeContainer.gd" id="1_dpe7k"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 218.0
+offset_bottom = 31.0
 theme_override_constants/separation = 23
 script = ExtResource("1_dpe7k")
 
