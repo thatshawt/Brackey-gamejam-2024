@@ -15,6 +15,7 @@ var categories_added = []
 
 func _ready():
 	SignalBus.ui_change_category.connect(on_ui_catgeory_change)
+	SignalBus.ui_buy_level.connect(on_ui_buy_level)
 	
 	for upgrade in Upgrades.UpgradeType.values():
 		var category_name = Upgrades._get_category_name(upgrade)
@@ -40,3 +41,6 @@ func on_ui_catgeory_change(category: String):
 			var right: RightGoddamnContainer = RightThing.instantiate()
 			upgrades_vcontainer.add_child(right)
 			right.set_upgrade_data(GlobalScript.game_state.upgrades_state.get_upgrade_data(upgrade))
+			
+func on_ui_buy_level(upgrade: Upgrades.UpgradeData):
+	on_ui_catgeory_change(upgrade.category)

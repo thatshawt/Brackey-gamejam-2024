@@ -30,7 +30,7 @@ class ShipState:
 				SignalBus.game_lose.emit()
 
 class GameState:
-	var fish: int = 0
+	var fish: int = 1000
 	
 	var hotbar: Hotbar = GlobalScriptType.Hotbar.new()
 	var ship_state: ShipState = GlobalScriptType.ShipState.new()
@@ -39,7 +39,7 @@ class GameState:
 	var upgrades_state: Upgrades.UpgradesState = Upgrades.UpgradesState.new()
 	
 	var the_player: PlayerNode
-	
+
 	func _init():
 		pass
 		
@@ -52,8 +52,9 @@ class GameState:
 var game_state: GameState = GlobalScriptType.GameState.new()
 
 func _ready():
-	SignalBus.weapon_change.connect(game_state.weapon_change)
-	SignalBus.weapon_change.emit(Weapon.weapons.Bow)
+	print(game_state)
+	#SignalBus.weapon_change.connect(game_state.weapon_change)
+	#SignalBus.weapon_change.emit(Weapon.weapons.Bow)
 	
 	game_state.upgrades_state.get_upgrade_data(Upgrades.UpgradeType.Weapon_Bullet_Count)
 	

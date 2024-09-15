@@ -174,6 +174,9 @@ class UpgradesState:
 		set_upgrade_level(UpgradeType.Ability_Instant_Mine_Reload, 0)
 		set_upgrade_level(UpgradeType.Ability_Stink_Candle, 0)
 	
+	func increment_upgrade_level(stat: UpgradeType, level: int):
+		_level_map[stat] = _level_map[stat]+ level
+	
 	func set_upgrade_level(stat: UpgradeType, level: int):
 		_level_map[stat] = level
 		
